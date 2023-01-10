@@ -26,17 +26,41 @@ export const TreeItem = (props: TreeItemProps) => {
   } = props;
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  const handleItemSelect = (event: React.UIEvent<HTMLDivElement>) => {
+  const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     onItemSelect?.(nodeId);
     event.stopPropagation();
   };
 
-  const handleItemFoldUnfold = (event: React.UIEvent<HTMLDivElement>) => {
-    event.preventDefault();
+  const handleItemKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.code === "Enter" || event.code === "Space") {
+      event.preventDefault();
+      onItemSelect?.(nodeId);
+      event.stopPropagation();
+    }
+  };
+
+  const itemFoldUnfold = () => {
     setExpanded(!expanded);
     expanded ? onItemFold?.(nodeId) : onItemUnfold?.(nodeId);
+  };
+
+  const handleItemFoldUnfoldClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+  ) => {
+    event.preventDefault();
+    itemFoldUnfold();
     event.stopPropagation();
+  };
+
+  const handleItemFoldUnfoldKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+  ) => {
+    if (event.code === "Enter" || event.code === "Space") {
+      event.preventDefault();
+      itemFoldUnfold();
+      event.stopPropagation();
+    }
   };
 
   const handleItemFocus = (event: React.FocusEvent<HTMLDivElement>) => {
@@ -67,8 +91,8 @@ export const TreeItem = (props: TreeItemProps) => {
             className="py-8"
             tabIndex={0}
             role="button"
-            onClick={handleItemFoldUnfold}
-            onKeyDown={handleItemFoldUnfold}
+            onClick={handleItemFoldUnfoldClick}
+            onKeyDown={handleItemFoldUnfoldKeyDown}
             aria-label="fold/unfold button"
           >
             {Array.isArray(children) && !expanded && (
@@ -102,8 +126,8 @@ export const TreeItem = (props: TreeItemProps) => {
             tabIndex={0}
             role="button"
             className="flex-fill d-flex align-items-center gap-8 py-8"
-            onClick={handleItemSelect}
-            onKeyDown={handleItemSelect}
+            onClick={handleItemClick}
+            onKeyDown={handleItemKeyDown}
             onFocus={handleItemFocus}
             onBlur={handleItemBlur}
           >
