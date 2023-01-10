@@ -54,8 +54,13 @@ export const TreeItem = (props: TreeItemProps) => {
   const rafterSize = section ? 16 : 12;
 
   const renderItem = () => (
-    <li id={nodeId} role="treeitem" aria-selected={selected}>
-      <div aria-expanded={expanded}>
+    <li
+      id={nodeId}
+      role="treeitem"
+      aria-selected={selected}
+      aria-expanded={expanded}
+    >
+      <div>
         <div className="action-container d-flex align-items-center gap-8 px-2">
           <div
             className="py-8"
@@ -63,6 +68,7 @@ export const TreeItem = (props: TreeItemProps) => {
             role="button"
             onClick={handleItemFoldUnfold}
             onKeyDown={handleItemFoldUnfold}
+            aria-label="fold/unfold button"
           >
             {Array.isArray(children) && !expanded && (
               <RafterRight
