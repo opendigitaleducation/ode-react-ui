@@ -56,7 +56,7 @@ export const TreeItem = (props: TreeItemProps) => {
   const renderItem = () => (
     <li id={nodeId} role="treeitem" aria-selected={selected}>
       <div aria-expanded={expanded}>
-        <div className="action-container d-flex align-items-center gap-8 ms-8 px-2">
+        <div className="action-container d-flex align-items-center gap-8 px-2">
           <div
             className="py-8"
             tabIndex={0}
