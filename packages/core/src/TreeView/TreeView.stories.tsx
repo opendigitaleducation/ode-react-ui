@@ -140,8 +140,8 @@ const Template: ComponentStory<typeof TreeView> = (args) => {
           events):
         </span>
         <ul>
-          {events.map((event) => (
-            <li>{event}</li>
+          {events.map((event, index) => (
+            <li key={index}>{event}</li>
           ))}
         </ul>
       </div>
