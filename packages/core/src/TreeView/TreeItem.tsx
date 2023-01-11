@@ -5,10 +5,11 @@
  * @see Source   https://github.com/opendigitaleducation/ode-react-ui/blob/main/packages/advanced/src/TreeViewCustom/TreeItem.tsx
  * @see WAI-ARIA https://www.w3.org/WAI/ARIA/apg/patterns/treeview/
  */
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Folder, RafterRight, RafterDown } from "@ode-react-ui/icons";
 
+import useTreeItemEvents from "./hooks/useTreeItemEvents";
 import { TreeItemProps } from "./TreeItemProps";
 
 export const TreeItem = (props: TreeItemProps) => {
@@ -24,56 +25,26 @@ export const TreeItem = (props: TreeItemProps) => {
     onItemFocus,
     onItemBlur,
   } = props;
+
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    onItemSelect?.(nodeId);
-    event.stopPropagation();
-  };
-
-  const handleItemKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.code === "Enter" || event.code === "Space") {
-      event.preventDefault();
-      onItemSelect?.(nodeId);
-      event.stopPropagation();
-    }
-  };
-
-  const itemFoldUnfold = () => {
-    setExpanded(!expanded);
-    expanded ? onItemFold?.(nodeId) : onItemUnfold?.(nodeId);
-  };
-
-  const handleItemFoldUnfoldClick = (
-    event: React.MouseEvent<HTMLDivElement>,
-  ) => {
-    event.preventDefault();
-    itemFoldUnfold();
-    event.stopPropagation();
-  };
-
-  const handleItemFoldUnfoldKeyDown = (
-    event: React.KeyboardEvent<HTMLDivElement>,
-  ) => {
-    if (event.code === "Enter" || event.code === "Space") {
-      event.preventDefault();
-      itemFoldUnfold();
-      event.stopPropagation();
-    }
-  };
-
-  const handleItemFocus = (event: React.FocusEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    onItemFocus?.(nodeId);
-    // no need to stop propagation because focus event does not bubble
-  };
-
-  const handleItemBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    onItemBlur?.(nodeId);
-    // no need to stop propagation because blur event does not bubble
-  };
+  const {
+    handleItemClick,
+    handleItemKeyDown,
+    handleItemFoldUnfoldClick,
+    handleItemFoldUnfoldKeyDown,
+    handleItemFocus,
+    handleItemBlur,
+  } = useTreeItemEvents(
+    nodeId,
+    expanded,
+    setExpanded,
+    onItemSelect,
+    onItemFold,
+    onItemUnfold,
+    onItemFocus,
+    onItemBlur,
+  );
 
   const rafterSize = section ? 16 : 12;
 
