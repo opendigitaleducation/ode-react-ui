@@ -79,7 +79,7 @@ export const TreeItem = (props: TreeItemProps) => {
 
   const renderItem = () => (
     <li
-      id={nodeId}
+      id={`listitem_${nodeId}`}
       key={nodeId}
       role="treeitem"
       aria-selected={selected}
