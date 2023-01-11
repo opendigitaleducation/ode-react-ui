@@ -1,5 +1,11 @@
 # @ode-react-ui/core
 
+## 1.0.7-dev.24
+
+### Patch Changes
+
+- [#85](https://github.com/opendigitaleducation/ode-react-ui/pull/85) [`aaced54`](https://github.com/opendigitaleducation/ode-react-ui/commit/aaced541b94c33db54aebf8d7cacc2d22794ac3a) Thanks [@david-cc](https://github.com/david-cc)! - Fix style and accessibility warnings. Refactor TreeItem: extract events handler to dedicated hook
+
 ## 1.0.7-dev.23
 
 ### Patch Changes
